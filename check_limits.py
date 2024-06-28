@@ -1,32 +1,38 @@
 def validate_temperature(temperature):
     """Validates temperature"""
-    if temperature < 0 or temperature > 45:
-        return False
-    return True
+    return not(temperature < 0 or temperature > 45)
 
 
 def validate_soc(soc):
     """Validates state of charge"""
-    if soc < 20 or soc > 80:
-        return False
-    return True
+    return not(soc < 20 or soc > 80)
 
 
 def validate_charge_rate(charge_rate):
     """Validates charge rate"""
-    if charge_rate > 0.8:
-        return False
-    return True
+    return not(charge_rate > 0.8)
+
+
+def print_temperature_error_message(temperature):
+    if not validate_temperature(temperature):
+        print('Temperature is out of range!')
+
+
+def print_SOC_error_message(soc):
+    if not validate_soc(soc):
+        print('State of Charge is out of range!')
+
+
+def print_charge_rate_error_message(charge_rate):
+    if not validate_charge_rate(charge_rate):
+        print('Charge rate is out of range!')
 
 
 def print_errors(temperature, soc, charge_rate):
     """Prints all validation errors"""
-    if temperature < 0 or temperature > 45:
-        print('Temperature is out of range!')
-    if soc < 20 or soc > 80:
-        print('State of Charge is out of range!')
-    if charge_rate > 0.8:
-        print('Charge rate is out of range!')
+    print_temperature_error_message(temperature)
+    print_SOC_error_message(soc)
+    print_charge_rate_error_message(charge_rate)
 
 
 def battery_is_ok(temperature, soc, charge_rate):
