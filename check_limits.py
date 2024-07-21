@@ -40,7 +40,7 @@ CHARGE_RATE_TOLERANCE = 0.05 * CHARGE_RATE_MAX
 
 def translate(message_key):
     """Translate message based on the global LANGUAGE variable."""
-    return translations[LANGUAGE].get(message_key, message_key)
+    return translations[LANGUAGE].get(message_key, "")
 
 
 def validate_temperature(temperature):
@@ -68,9 +68,8 @@ def print_error_message(value, min_value, max_value, tolerance, param_name):
 
 
 def print_message(conditions):
-    message_key = next((message_key for condition, message_key in conditions.items() if condition), None)
-    if message_key:
-        print(translate(message_key))
+    message_key = next((message_key for condition, message_key in conditions.items() if condition), '')
+    print(translate(message_key))
 
 
 def print_temperature_error_message(temperature):
