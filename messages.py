@@ -13,8 +13,13 @@ def print_error_message(value, min_value, max_value, tolerance, param_name):
     print_message(conditions)
 
 
-def print_message(conditions):
+def get_message_key(conditions):
     message_key = next((message_key for condition, message_key in conditions.items() if condition), '')
+    return message_key
+
+
+def print_message(conditions):
+    message_key = get_message_key(conditions)
     if message_key:
         print(translate(message_key))
 
