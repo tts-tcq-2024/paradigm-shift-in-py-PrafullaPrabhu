@@ -39,5 +39,10 @@ def set_language(language):
 
 
 def translate(message_key):
-    """Translate message based on the global LANGUAGE variable."""
     return translations[get_language()].get(message_key, "")
+
+
+def print_message(parameter_name, validation_status):
+    if validation_status != 'ok':
+        message_key = f'{parameter_name}_{validation_status}'
+        print(translate(message_key))
