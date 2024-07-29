@@ -1,59 +1,21 @@
-# paradigm-shift-py
-# Programming Paradigms
+Battery Management System
+This repository contains a Python implementation for validating various parameters of a battery management system. The system checks if temperature, state of charge (SOC), and charge rate values fall within acceptable ranges and provides warnings if they are approaching critical thresholds.
 
-Electric Vehicles have BMS - Battery Management Systems
+Constants for Validation
+Temperature
+TEMP_MIN: Minimum acceptable temperature (0°C).
+TEMP_MAX: Maximum acceptable temperature (45°C).
+TEMP_TOLERANCE: 5% of the maximum temperature value used to determine warning thresholds.
+State of Charge (SOC)
+SOC_MIN: Minimum acceptable state of charge (20%).
+SOC_MAX: Maximum acceptable state of charge (80%).
+SOC_TOLERANCE: 5% of the maximum SOC value used to determine warning thresholds.
+Charge Rate
+CHARGE_RATE_MAX: Maximum acceptable charge rate (0.8C).
+CHARGE_RATE_TOLERANCE: 5% of the maximum charge rate used to determine warning thresholds.
 
-[Here is an article that helps to understand the need for BMS](https://circuitdigest.com/article/battery-management-system-bms-for-electric-vehicles)
+In this script:
 
-[Wikipedia gives an idea of the types and topologies](https://en.wikipedia.org/wiki/Battery_management_system)
-
-[This site gives the optimum Charging-temperature limits](https://batteryuniversity.com/learn/article/charging_at_high_and_low_temperatures)
-
-[This abstract suggests a range for the optimum State of Charge](https://www.sciencedirect.com/science/article/pii/S2352484719310911)
-
-[Here is a reference for the maximum charge rate](https://www.electronics-notes.com/articles/electronic_components/battery-technology/li-ion-lithium-ion-charging.php#:~:text=Constant%20current%20charge:%20In%20the%20first%20stage%20of,rate%20of%20a%20maximum%20of%200.8C%20is%20recommended.)
-
-## Possible purpose
-
-- Protect batteries while charging:
-at home, in public place, within vehicle / regenerative braking
-- Estimate life, inventory and supply chains
-
-## The Starting Point
-
-We will explore the charging phase of Li-ion batteries to start with.
-
-## Issues
-
-- The code here has high complexity in a single function.
-- The tests are not complete - they do not cover all the needs of a consumer
-
-## Tasks
-
-1. Reduce the cyclomatic complexity.
-1. Avoid duplication - functions that do nearly the same thing
-1. Complete the tests - cover all conditions.
-1. To treat, we need to know the abnormal vital and the breach -
-whether high or low. Add this capability.
-1. Add the ability to plug-in different reporters to this code.
-
-## The Exploration
-
-How well does our code hold-out in the rapidly evolving EV space?
-Can we add new functionality without disturbing the old?
-
-## The Landscape
-
-- Limits may change based on new research
-- Technology changes due to obsolescence
-- Sensors may be from different vendors with different accuracy
-- Predicting the future requires Astrology!
-
-## Keep it Simple
-
-Shorten the Semantic distance
-
-- Procedural to express sequence
-- Functional to express relation between input and output
-- Object oriented to encapsulate state with actions
-- Apect oriented to capture repeating aspects
+The set_language function sets the language for the messages.
+The get_language function verifies the current language setting.
+The battery_is_ok function checks if the battery parameters are within acceptable ranges and prints corresponding messages.
