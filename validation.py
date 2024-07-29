@@ -13,16 +13,48 @@ SOC_TOLERANCE = 0.05 * SOC_MAX
 CHARGE_RATE_TOLERANCE = 0.05 * CHARGE_RATE_MAX
 
 
+def check_out_of_range(value, min_value, max_value):
+    return value < min_value or value > max_value
+
+
+def check_warning_low(value, min_value, tolerance):
+    return min_value <= value < min_value + tolerance
+
+
+def check_warning_high(value, max_value, tolerance):
+    return max_value - tolerance < value <= max_value
+
+
+def validate_parameter(value, min_value, max_value, tolerance):
+    result = (
+        'out_of_range' if check_out_of_range(value, min_value, max_value) else
+        'warning_low' if check_warning_low(value, min_value, tolerance) else
+        'warning_high' if check_warning_high(value, max_value, tolerance) else
+        'ok'
+    )
+    return result
+
+
 def validate_temperature(temperature):
-    """Validates temperature"""
-    return TEMP_MIN <= temperature <= TEMP_MAX
+    return validate_parameter(temperature, TEMP_MIN, TEMP_MAX, TEMP_TOLERANCE)
 
 
 def validate_soc(soc):
-    """Validates state of charge"""
-    return SOC_MIN <= soc <= SOC_MAX
+    return validate_parameter(soc, SOC_MIN, SOC_MAX, SOC_TOLERANCE)
+
+
+def check_charge_rate_out_of_range(charge_rate):
+    return charge_rate > CHARGE_RATE_MAX
+
+
+def check_charge_rate_warning_high(charge_rate):
+    return CHARGE_RATE_MAX - CHARGE_RATE_TOLERANCE < charge_rate <= CHARGE_RATE_MAX
 
 
 def validate_charge_rate(charge_rate):
-    """Validates charge rate"""
-    return charge_rate <= CHARGE_RATE_MAX
+    result = (
+        'out_of_range' if check_charge_rate_out_of_range(charge_rate) else
+        'warning_high' if check_charge_rate_warning_high(charge_rate) else
+        'ok'
+    )
+    return result
