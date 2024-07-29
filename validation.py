@@ -26,13 +26,12 @@ def check_warning_high(value, max_value, tolerance):
 
 
 def validate_parameter(value, min_value, max_value, tolerance):
-    result = (
-        'out_of_range' if check_out_of_range(value, min_value, max_value) else
-        'warning_low' if check_warning_low(value, min_value, tolerance) else
-        'warning_high' if check_warning_high(value, max_value, tolerance) else
-        'ok'
-    )
-    return result
+    checks = {
+        'out_of_range': check_out_of_range(value, min_value, max_value),
+        'warning_low': check_warning_low(value, min_value, tolerance),
+        'warning_high': check_warning_high(value, max_value, tolerance)
+    }
+    return next((status for status, result in checks.items() if result), 'ok')
 
 
 def validate_temperature(temperature):
